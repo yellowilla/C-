@@ -1,0 +1,99 @@
+/**
+总时间限制: 1000ms 内存限制: 65536kB
+描述
+程序填空，使其输出9 22 5
+
+#include <iostream>
+using namespace std;
+class Sample {
+public:
+	int v;
+// 在此处补充你的代码
+};
+void PrintAndDouble(Sample o)
+{
+	cout << o.v;
+	cout << endl;
+}
+int main()
+{
+	Sample a(5);
+	Sample b = a;
+	PrintAndDouble(b);
+	Sample c = 20;
+	PrintAndDouble(c);
+	Sample d;
+	d = a;
+	cout << d.v;
+	return 0;
+}
+输入
+无
+输出
+9
+
+*/
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+#include <iostream>
+#include <math.h>
+using namespace std;
+class Sample {
+public:
+	int v;
+	
+	 // 等号运算符重载
+     // 注意，这个类似复制构造函数，将=右边的本类对象的值复制给等号左边的对象，它不属于构造函数，等号左右两边的对象必须已经被创建
+     // 若没有显示的写=运算符重载，则系统也会创建一个默认的=运算符重载，只做一些基本的拷贝工作
+     Sample &operator=(const Sample &p)
+     {
+         // 首先检测等号右边的是否就是左边的对象本，若是本对象本身,则直接返回
+         if ( this == &p ) 
+         {
+             return *this;
+         }
+              
+         // 复制等号右边的成员到左边的对象中
+         this->v = p.v;
+              
+         // 把等号左边的对象再次传出
+         // 目的是为了支持连等 eg:    a=b=c 系统首先运行 b=c
+         // 然后运行 a= ( b=c的返回值,这里应该是复制c值后的b对象)    
+         return *this;
+    }
+	
+	Sample(int m = 0)
+	{
+		v = m;
+	}
+	
+	Sample(const Sample & n)
+	{
+		v = n.v + 2;
+	}
+	
+	
+};
+
+//复制传参，调用复制构造函数
+//如果是引用，则不调用，void PrintAndDouble(Sample & o)
+void PrintAndDouble(Sample o)
+{
+	cout << o.v;
+	cout << endl;
+}
+
+int main()
+{
+	Sample a(5);
+	Sample b = a; //初始化，调用复制构造函数
+	PrintAndDouble(b);
+	Sample c = 20; //初始化，调用复制构造函数
+	PrintAndDouble(c);
+	Sample d;
+	d = a; //对象间赋值，不调用复制构造函数
+	cout << d.v;
+	return 0;
+}
