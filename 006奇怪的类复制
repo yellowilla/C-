@@ -42,9 +42,9 @@ int main()
 using namespace std;
 class Sample {
 public:
-	int v;
+     int v;
 	
-	 // 等号运算符重载
+     // 等号运算符重载
      // 注意，这个类似复制构造函数，将=右边的本类对象的值复制给等号左边的对象，它不属于构造函数，等号左右两边的对象必须已经被创建
      // 若没有显示的写=运算符重载，则系统也会创建一个默认的=运算符重载，只做一些基本的拷贝工作
      Sample &operator=(const Sample &p)
